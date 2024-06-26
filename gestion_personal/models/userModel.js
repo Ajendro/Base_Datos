@@ -4,7 +4,7 @@ class user {
         (this.name = name),
         (this.birth_date = birth_date),
         (this.registration_date = registration_date);
-        
+   
     }
 }
 
