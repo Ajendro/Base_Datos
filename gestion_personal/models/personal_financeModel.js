@@ -1,9 +1,9 @@
 class personal_finance{
-    constructor(id, amount, description, transaccion_date) {
+    constructor(id, amount, description, transacion_date) {
         (this.id = id),
         (this.amount = amount),
         (this.description = description),
-        (this.transaccion_date = transaccion_date);
+        (this.transacion_date = transacion_date);
         
     }
 }
