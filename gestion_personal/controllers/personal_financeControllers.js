@@ -35,7 +35,7 @@ export const createPersonal_finance = async (req, res, next) => {
             doc.id,
             doc.data().amount,
             doc.data().description,
-            doc.data().transaccion_date,
+            doc.data().transaction_date,
           );
           personal_financeArray.push(Personal_Finance);
         });
