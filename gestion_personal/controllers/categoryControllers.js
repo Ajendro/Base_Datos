@@ -42,6 +42,7 @@ export const createCategory = async (req, res, next) => {
   
         res.status(200).send(categoryArray);
       }
+      
     } catch (error) {
       res.status(400).send(error.message);
     }
