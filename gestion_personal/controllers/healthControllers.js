@@ -15,7 +15,15 @@ const db = getFirestore(firebase);
 export const createHealth = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'health'), data);
+      const relactionHealt = {
+        registration_date:data.registration_date,
+        weight:data.weight, 
+        heart_rate:data.heart_rate, 
+        allergy:data.allergy,
+        fk_user:doc(db, "user", data.idUser),
+        fk_report: doc(db, "report", data.idReport),
+        }
+      await addDoc(collection(db, 'health'),relactionHealt);
       res.status(200).send('Health created successfully');
     } catch (error) {
       res.status(400).send(error.message);
