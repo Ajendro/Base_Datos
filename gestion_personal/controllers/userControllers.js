@@ -15,13 +15,22 @@ const db = getFirestore(firebase);
 export const createUser = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'user'), data);
+      const typeUser = {
+      name:data.name,
+      birth_date:data.birth_date,
+      registration_date:data.registration_date,
+      reference: doc(db, "sub-category", data.idsubCategory)
+      }
+      await addDoc(collection(db, 'user'), typeUser);
       res.status(200).send('user created successfully');
     } catch (error) {
       res.status(400).send(error.message);
     }
   };
 
+
+  
+  
   export const getUsers = async (req, res, next) => {
     try {
       const users = await getDocs(collection(db, 'user'));
