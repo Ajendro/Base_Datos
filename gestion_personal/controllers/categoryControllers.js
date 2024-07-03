@@ -72,7 +72,6 @@ export const getCategorys = async (req, res, next) => {
 };
 
 
-
 export const getCategory = async (req, res, next) => {
   try {
     const id = req.params.id;
