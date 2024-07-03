@@ -16,7 +16,13 @@ const db = getFirestore(firebase);
 export const createIntegration = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'integration'), data);
+      const integration = {
+        token:data.token, 
+        date_expire:data.date_expire,
+        fk_category: doc(db, "sub-category", data.idsubCategory),
+        fk_report: doc(db, "report", data.idReport)
+      }
+      await addDoc(collection(db, 'integration'), integration);
       res.status(200).send('Integration created successfully');
     } catch (error) {
       res.status(400).send(error.message);

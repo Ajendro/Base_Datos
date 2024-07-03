@@ -15,7 +15,12 @@ import {
 export const createAuthentication = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'authentication'), data);
+      const typeUser = {
+        password:data.password, 
+        email:data.email,
+        fk_user: doc(db, "user", data.idsubCategory)
+        }
+      await addDoc(collection(db, 'authentication'), typeUser);
       res.status(200).send('Authentication created successfully');
     } catch (error) {
       res.status(400).send(error.message);

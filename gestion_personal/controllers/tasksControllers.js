@@ -15,7 +15,16 @@ const db = getFirestore(firebase);
 export const createTask = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'task'), data);
+      const task = {
+        title:data.title, 
+        description:data.description, 
+        expiration_date:data.expiration_date,
+        state:data.state,
+        fk_user: doc(db, "user", data.idUser),
+        fk_category: doc(db, "sub-category", data.idsubCategory),
+        fk_reports: doc(db, "report", data.idReport)
+      }
+      await addDoc(collection(db, 'task'), task);
       res.status(200).send('task created successfully');
     } catch (error) {
       res.status(400).send(error.message);

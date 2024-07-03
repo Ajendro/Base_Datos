@@ -18,7 +18,14 @@ const db = getFirestore(firebase);
 export const createFinancialsGoal = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'financial_goal'), data);
+      const financials = {
+        description:data.description, 
+        target_amount:data.target_amount,
+        current_amount:data.current_amount, 
+        deadline:data.deadline,
+        fk_User: doc(db, "user", data.idUser)
+        }
+      await addDoc(collection(db, 'financial_goal'), financials);
       res.status(200).send('Financials Goal created successfully');
     } catch (error) {
       res.status(400).send(error.message);

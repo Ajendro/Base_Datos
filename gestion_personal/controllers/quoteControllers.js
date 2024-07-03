@@ -15,7 +15,15 @@ const db = getFirestore(firebase);
 export const createQuote = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'quote'), data);
+      const typeUser = {
+        dating_date:data.dating_date, 
+        location:data.location, 
+        state:data.state,
+        fk_user: doc(db, "user", data.idUser),
+        fk_category: doc(db, "sub-category", data.idsubCategory),
+        fk_reports: doc(db, "report", data.idReport)
+      }
+      await addDoc(collection(db, 'quote'), typeUser);
       res.status(200).send('Quote created successfully');
     } catch (error) {
       res.status(400).send(error.message);

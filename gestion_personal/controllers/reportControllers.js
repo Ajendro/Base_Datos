@@ -15,7 +15,14 @@ import {
 export const createReport = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'report'), data);
+      const report = {
+        name:data.name,
+        generation_date:data.generation_date, 
+        description:data.description, 
+        format:data.format,
+        fk_category: doc(db, "sub-category", data.idsubCategory)
+      }
+      await addDoc(collection(db, 'report'), report);
       res.status(200).send('report created successfully');
     } catch (error) {
       res.status(400).send(error.message);

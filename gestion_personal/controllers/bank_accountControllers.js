@@ -15,7 +15,13 @@ const db = getFirestore(firebase);
 export const createBank_account = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'bank_account'), data);
+      const bank_account = {
+        bank:data.bank,
+        balance:data.bank,
+        fk_user: doc(db, "user", data.idUser),
+        fk_category: doc(db, "sub-category", data.idsubCategory),
+        }
+      await addDoc(collection(db, 'bank_account'), bank_account);
       res.status(200).send('Bank account created successfully');
     } catch (error) {
       res.status(400).send(error.message);

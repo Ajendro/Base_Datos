@@ -16,7 +16,12 @@ const db = getFirestore(firebase);
 export const createAuthentication_method = async (req, res, next) => {
   try {
     const data = req.body;
-    await addDoc(collection(db, 'authentication_method'), data);
+    const type_aute = {
+      name:data.name,
+      description:data.description,
+      fk_auten: doc(db, "authentication", data.idsubCategory)
+      }
+    await addDoc(collection(db, 'authentication_method'),type_aute);
     res.status(200).send('Authentication method created successfully');
   } catch (error) {
     res.status(400).send(error.message);

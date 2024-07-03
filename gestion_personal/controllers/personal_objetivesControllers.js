@@ -15,7 +15,14 @@ const db = getFirestore(firebase);
 export const createPersonalObjective = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'personal_objetives'), data);
+      const personal = {
+      description:data.description, 
+      end_date:data.end_date, 
+      progress:data.progress, 
+      start_date:data.start_date,
+      fk_reports: doc(db, "report", data.idReport)
+      }
+      await addDoc(collection(db, 'personal_objetives'), personal);
       res.status(200).send('Personal Objective created successfully');
     } catch (error) {
       res.status(400).send(error.message);

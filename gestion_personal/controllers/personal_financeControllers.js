@@ -15,7 +15,14 @@ const db = getFirestore(firebase);
 export const createPersonal_finance = async (req, res, next) => {
     try {
       const data = req.body;
-      await addDoc(collection(db, 'personal_finance'), data);
+      const finance = {
+        amount:data.amount, 
+        description:data.description, 
+        transacion_date:data.transacion_date,
+        fk_Category: doc(db, "sub-category", data.idsubCategory),
+        fk_User: doc(db, "users", data.idUser)
+        }
+      await addDoc(collection(db, 'personal_finance'), finance);
       res.status(200).send('Personal Finance created successfully');
     } catch (error) {
       res.status(400).send(error.message);

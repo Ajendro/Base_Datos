@@ -19,7 +19,7 @@ export const createUser = async (req, res, next) => {
       name:data.name,
       birth_date:data.birth_date,
       registration_date:data.registration_date,
-      reference: doc(db, "sub-category", data.idsubCategory)
+      fk_typeuser: doc(db, "sub-category", data.idsubCategory)
       }
       await addDoc(collection(db, 'user'), typeUser);
       res.status(200).send('user created successfully');
@@ -28,8 +28,7 @@ export const createUser = async (req, res, next) => {
     }
   };
 
-
-  
+ 
   
   export const getUsers = async (req, res, next) => {
     try {
