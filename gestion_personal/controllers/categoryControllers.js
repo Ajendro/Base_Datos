@@ -43,33 +43,28 @@ export const createSubCategory = async (req, res, next) => {
 
 
 
-export const getCategorys = async (req, res, next) => {
-  try {
-    let collectionReference = collection(db, 'category');
-    if (req.body.sub) {
-      const id = req.body.idCategory
-      collectionReference = collection(db, 'category', id, "sub-category");
+  export const getCategorys = async (req, res, next) => {
+    try {
+      const categorys = await getDocs(collection(db, 'category'));
+      const categoryArray = [];
+  
+      if (categorys.empty) {
+        res.status(400).send('No integration finances found');
+      } else {
+        categorys.forEach((doc) => {
+          const Category = new category (
+            doc.id,
+            doc.data().name
+          );
+          categoryArray.push(Category);
+        });
+  
+        res.status(200).send(categoryArray);
+      }
+    } catch (error) {
+      res.status(400).send(error.message);
     }
-    const categorys = await getDocs(collectionReference);
-    const categoryArray = [];
-
-    if (categorys.empty) {
-      res.status(400).send('No integration finances found');
-    } else {
-      categorys.forEach((doc) => {
-        const Category = new category(
-          doc.id,
-          doc.data().name
-        );
-        categoryArray.push(Category);
-      });
-
-      res.status(200).send(categoryArray);
-    }
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-};
+  };
 
 
 export const getCategory = async (req, res, next) => {
